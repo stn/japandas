@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import datetime
 import os
 
-import pandas.compat as compat
+import _pickle as cPickle
 import pandas.tseries.holiday as holiday
 
 current_dir = os.path.dirname(__file__)
@@ -17,7 +17,7 @@ tse_data_path = os.path.join(current_dir, 'data', 'tseholidays.pkl')
 def _read_rules(path):
     if os.path.exists(path):
         with open(path, mode='rb') as f:
-            rules = compat.cPickle.load(f)
+            rules = cPickle.load(f)
     elif __name__ != '__main__':
         raise ImportError("Unable to load '{0}'".format(path))
     else:
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     def to_pickle(dates, path):
         rules = []
-        keys = sorted(compat.iterkeys(dates))
+        keys = sorted(dates.keys())
         for dt in keys:
             name = dates[dt]
             h = holiday.Holiday(
@@ -62,7 +62,7 @@ if __name__ == '__main__':
             rules.append(h)
 
         with open(path, mode='wb') as w:
-            compat.cPickle.dump(rules, w, protocol=2)
+            cPickle.dump(rules, w, protocol=2)
             print('pickled {0} data'.format(len(dates)))
 
     with open(os.path.join('data', 'holidays.yml'), mode='rb') as f:
