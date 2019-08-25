@@ -5,9 +5,10 @@ from __future__ import unicode_literals
 
 from unicodedata import normalize
 
-from pandas.compat import PY3, iteritems, u_safe
+from pandas.compat import iteritems, u_safe
 import pandas.core.strings as strings
 
+PY3 = True
 
 # soundmarks require special handlings
 _HKANA = 'ｧｱｨｲｩｳｪｴｫｵｶｷｸｹｺｻｼｽｾｿﾀﾁｯﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓｬﾔｭﾕｮﾖﾗﾘﾙﾚﾛﾜｦﾝﾞｰ･｢｣｡､'
